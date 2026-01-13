@@ -70,6 +70,7 @@ index=botsv3 sourcetype=aws:cloudtrail earliest=0
 **Answer: bstoll, btun, splunk_access, web_admin**
 
 **SOC Relevance:**
+Identifying IAM users that have accessed AWS services is a critical step in SOC monitoring and incidente response. By querying cloudtrail logs for API activity, analysts can detect unusual or unauthorized usuage, such as supicious automation scripts, cromprimised credentials or privilege escalation attempt.
 
 ---
 
