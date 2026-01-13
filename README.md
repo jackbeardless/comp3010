@@ -111,6 +111,10 @@ This detection falls within preventive and detective SOC controls, helping analy
 **SPL Query:**
 
 ```spl
+index=botsv3 sourcetype=hardware earliest=0
+| table host, cpu
+| sort host
+
 ```
 
 **Evidence:**
@@ -121,6 +125,7 @@ This detection falls within preventive and detective SOC controls, helping analy
 **Answer:E5-2676**
 
 **SOC Relevance:**
+Identifying processor types on servers is critical for SOC operations as part of asset inventory and vulnerability management. Hardware information helps analysts understand the environment, assess potential vulnerabilities, and correlate incidents to affected hardware. Maintaining up to date hardware details is a preventative control that supports incident investigation.
 
 ---
 
