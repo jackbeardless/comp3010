@@ -58,12 +58,16 @@ This section answers the selected BOTSv3 200-level guided questions, focusing on
 **SPL Query:**
 
 ```spl
+index=botsv3 sourcetype=aws:cloudtrail earliest=0
+| search NOT eventName=ConsoleLogin
+| stats count by userIdentity.userName
+| sort userIdentity.userName
 ```
 
 **Evidence:**
-*(Screenshot placeholder)*
+![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/Question1proof.png)
 
-**Answer:**
+**Answer: bstoll, btun, splunk_access, web_admin **
 
 **SOC Relevance:**
 
