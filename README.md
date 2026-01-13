@@ -95,6 +95,12 @@ index=botsv3 sourcetype=aws:cloudtrail earliest=0
 **Answer: userIdenity.sessionContext.attributes.mfaAuthenticated**
 
 **SOC Relevance:**
+Monitoring AWS API activity without MFA is a critical SOC control. MFa provides an additional layer of security beyond passwords or keys, detecting API calls without MFA allows analysts to:
+Identify potentially compromised credentials
+Trigger immediate alerts for risky access
+Ensure compliance with orginizational security policies.
+
+This detection falls within preventive and detective SOC controls, helping analysts reduce the risk of unauthorized access to sensitive cloud resources.
 
 ---
 
