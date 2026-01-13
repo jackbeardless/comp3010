@@ -114,9 +114,11 @@ This detection falls within preventive and detective SOC controls, helping analy
 ```
 
 **Evidence:**
-*(Screenshot placeholder)*
+![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/q3-1.png)
+![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/q3-2.png)
 
-**Answer:**
+
+**Answer:E5-2676**
 
 **SOC Relevance:**
 
