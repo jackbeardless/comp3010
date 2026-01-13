@@ -81,12 +81,18 @@ Identifying IAM users that have accessed AWS services is a critical step in SOC 
 **SPL Query:**
 
 ```spl
+index=botsv3 sourcetype=aws:cloudtrail earliest=0
+| search NOT eventName=ConsoleLogin
+| eval mfa_used=if(tostring(userIdentity.sessionContext.attributes.mfaAuthenticated)="true", 1, 0)
+| where mfa_used=0
+| stats count by userIdentity.userName, eventName
+| sort userIdentity.userName
 ```
 
 **Evidence:**
-*(Screenshot placeholder)*
+![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/question2proof.png)
 
-**Answer:**
+**Answer: userIdenity.sessionContext.attributes.mfaAuthenticated**
 
 **SOC Relevance:**
 
