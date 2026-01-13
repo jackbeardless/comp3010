@@ -208,14 +208,18 @@ This is a part of preventive, detective and corrective cloud SOC controls.
 **SPL Query:**
 
 ```spl
+index=botsv3 sourcetype="aws:s3:accesslogs" "txt"
 ```
 
 **Evidence:**
-*(Screenshot placeholder)*
+![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/q7-txt.png)
 
-**Answer:**
+**Answer:OPEN_BUCKET_PLEASE_FIX.txt**
 
 **SOC Relevance:**
+Monitoring s3 bucket uploads is critical to prevent data exposure
+Analysts track uploaded files via access logs (aws:s3:accesslogs) and identify esnsitive data
+Even when automated queries fail, manually verifying raw events is a valid investigative method in SOC operations.
 
 ---
 
