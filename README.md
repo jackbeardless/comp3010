@@ -9,13 +9,16 @@
 
 ## Introduction
 
-*(This section will introduce the Security Operations Centre (SOC) context, the BOTSv3 dataset, and the objectives and scope of the investigation.)*
+A security operations centre (or SOC) is responsible for continuous monitoring, detection, analysis and response to security incidents across an IT infrastructure. Modern SOCS rely a lot on centralised log aggregation and analysis platforms such as splunk, to provide visibility across network, endpoint, cloud and application environments.
+This coursework is based on the BOTSv3 dataset which is a realistic simulatied security incident made by the splunk team. BOTSv3 uses a fictional organisation called Frothly which is a brewing comnpany operating a hybrid infrastructure that includes on premise systems , endpoints and cloud services using amazon AWS. The dataset contains a large volume of security relevant logs, including AWS cloudtrail events, s3 access logs, endpoint telemetry and host monitoring data.
+The objective of my investigation is to assume the role of a SOC analyst and conduct and incident analysis using Splunks search processing language. The focys is on AWS related security events, with supporting analysis of endpoint data where relevant. By answering a set of Botsv3 questions, this report aims to demonstrate practical log analysis skills, an understanding of cloud security risks, and the ability to relate technical findings to SOC operations and incident handling methodologies. The scope of this investigations is limited to the data provided within the BOTSv3 set.
 
 ---
 
 ## SOC Roles & Incident Handling Reflection
 
-*(This section will reflect on SOC tiered roles (Tier 1–3), incident handling methodologies, and how detection, response, containment, and recovery phases relate to the BOTSv3 investigation.)*
+SOCs typically operate using a tiered analyst model, with responsibilities distributed across Tier 1 (triage and monitoring), Tier 2 (investigation and correlation), and Tier 3 (advanced threat hunting and incident response). This investigations primarily focuses on Tier 2, meaning I will be analysing alerts, correlating events and determining the scope and impact of security incidents.
+Throughout the investigation, findings are considered in the context of SOC workflows, including alert escalation, evidence preservation, and communication with stakeholders. EMphasis is placed on understanding not only what occured but also how a SOC would detect, respond to and prevent similar incidents.
 
 ---
 
@@ -23,15 +26,20 @@
 
 ### Environment Setup
 
-*(Describe Ubuntu VM setup and Splunk installation.)*
+The investigation environment is hosted on an Ubuntu Linux VM configured to run Splunk Enterprise. This setup reflects a common SOC deployment model where analysts interact with splunk through a web interface while aanalysis and indexing are performed on a dedicated Linux server. Ubuntu was selected due to stability and compatability.
+Splunk Enterprise is used as the primary SIEM platform for this investigation.
 
 ### BOTSv3 Dataset Ingestion
 
-*(Describe ingestion steps followed from the official BOTSv3 repository.)*
+The BOTSv3 dataset is obtained from the official splunk's github repository. The dataset consists of pre indexed logs covering multiple sourcetypes relevant to enterprise security monitoring. Ingestion is performed by following the vendor provided instructions to ensure correct index naming, sourcetype assignment and timestamp extraction.
+
 
 ### Data Validation
 
-*(Include evidence confirming successful ingestion, such as sourcetype counts.)*
+Once ingestion is completed, data validation is performed to confirm that logs have been indexed and that key sourcetypes are available for analysis. Validation includes verifying event vounts, confirming the presence of AWS and enpoint related sourcetypes and ensuring that time ranges align with the simulated incident period.
+Sucessful validation is critical in a SOC context, as innacurate or incomplete log ingestion can lead to missed detections or delayed incident response. 
+
+**EVIDENCE of VALIDATION HERE WHEN INGESTION COMPLETE**
 
 ---
 
