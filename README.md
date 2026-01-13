@@ -136,6 +136,11 @@ Identifying processor types on servers is critical for SOC operations as part of
 **SPL Query:**
 
 ```spl
+index=botsv3 sourcetype=aws:cloudtrail earliest=0
+| search eventName=PutBucketAcl
+| table _time, userIdentity.userName, userIdentity.arn, eventName, eventID, requestParameters
+| sort _time
+
 ```
 
 **Evidence:**
@@ -143,9 +148,14 @@ Identifying processor types on servers is critical for SOC operations as part of
 ![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/q4-publicproof.png)
 
 
-**Answer:**
+**Answer: ab45689d-69cd-41e7-8705-5350402cf7ac**
 
 **SOC Relevance:**
+Public S3 buckets are a major cloud misconfiguration risk.
+SOC analysts monitor PubtBucketAcl events to:
+Detect accidental or malicious exposure
+Alert admins and remediate quickly
+Track who made change and when
 
 ---
 
