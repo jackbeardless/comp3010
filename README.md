@@ -39,7 +39,9 @@ The BOTSv3 dataset is obtained from the official splunk's github repository. The
 Once ingestion is completed, data validation is performed to confirm that logs have been indexed and that key sourcetypes are available for analysis. Validation includes verifying event vounts, confirming the presence of AWS and enpoint related sourcetypes and ensuring that time ranges align with the simulated incident period.
 Sucessful validation is critical in a SOC context, as innacurate or incomplete log ingestion can lead to missed detections or delayed incident response. 
 
-**EVIDENCE of VALIDATION HERE WHEN INGESTION COMPLETE**
+Following ingestion, data validation was performed to confirm that the BOTSv3 dataset was sucessfully indexed. An initial search confirmed 2.8Million indexed events. A breakdown of events by sourcetype further verified the presence of key AWS and endpoint sources, including aws:cloudtrail, aws:s3:accesslogs, winhostmon and hardware. This validation step is critical in a SOC environment, as incomplete or missing log sources can result in missed detections.
+![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/ingestion1.png)
+![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/ingestion2.png)
 
 ---
 
