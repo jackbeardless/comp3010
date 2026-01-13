@@ -183,7 +183,21 @@ Track changes for compliance and audit reporting
 
 **Objective:** Identify the name of the S3 bucket that was made publicly accessible.
 
-**Answer:**
+**Also extracted during q4 analysis so using the same splunk query**
+
+**Answer: frothlywebcode**
+
+**Evidence**
+![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/q6-bucketname.png)
+
+**SOC Relevance**
+Detecting misconfigured s3 buckets is critical for soc operations.
+Public buckets can expose sensitive or confidential data. Analysts must:
+Identify which buckets were misconfigured.
+Determine who made the change 
+Alert admins and remediate the access control
+Log the incident for compliance audits.
+This is a part of preventive, detective and corrective cloud SOC controls.
 
 ---
 
