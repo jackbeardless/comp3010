@@ -67,7 +67,7 @@ index=botsv3 sourcetype=aws:cloudtrail earliest=0
 **Evidence:**
 ![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/Question1proof.png)
 
-**Answer: bstoll, btun, splunk_access, web_admin **
+**Answer: bstoll, btun, splunk_access, web_admin**
 
 **SOC Relevance:**
 
