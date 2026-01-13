@@ -139,7 +139,9 @@ Identifying processor types on servers is critical for SOC operations as part of
 ```
 
 **Evidence:**
-*(Screenshot placeholder)*
+![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/q4-query.png)
+![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/q4-publicproof.png)
+
 
 **Answer:**
 
