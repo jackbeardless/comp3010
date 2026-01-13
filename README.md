@@ -163,7 +163,19 @@ Track who made change and when
 
 **Objective:** Identify the username responsible for making the S3 bucket publicly accessible.
 
-**Answer:**
+
+**EXTRACTED DURING Q4 so no query for me to add**
+**Answer: bstoll**
+
+**Evidence:**
+![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/q5-username.png)
+
+**SOC Relevance:**
+Identifying which user made risky changes is a key part of SOC incident reposnose and auditing.
+Knowing the username allows analysts to: 
+Ivestigate intent. (malicious or accidental)
+Apply corrective actions or revoke access
+Track changes for compliance and audit reporting
 
 ---
 
