@@ -9,9 +9,9 @@
 
 ## Introduction
 
-A security operations centre (or SOC) is responsible for continuous monitoring, detection, analysis and response to security incidents across an IT infrastructure. Modern SOCS rely a lot on centralised log aggregation and analysis platforms such as splunk, to provide visibility across network, endpoint, cloud and application environments.
-This coursework is based on the BOTSv3 dataset which is a realistic simulatied security incident made by the splunk team. BOTSv3 uses a fictional organisation called Frothly which is a brewing comnpany operating a hybrid infrastructure that includes on premise systems , endpoints and cloud services using amazon AWS. The dataset contains a large volume of security relevant logs, including AWS cloudtrail events, s3 access logs, endpoint telemetry and host monitoring data.
-The objective of my investigation is to assume the role of a SOC analyst and conduct and incident analysis using Splunks search processing language. The focys is on AWS related security events, with supporting analysis of endpoint data where relevant. By answering a set of Botsv3 questions, this report aims to demonstrate practical log analysis skills, an understanding of cloud security risks, and the ability to relate technical findings to SOC operations and incident handling methodologies. The scope of this investigations is limited to the data provided within the BOTSv3 set.
+A security operations centre (or SOC) is responsible for continuous monitoring, detection, analysis and response to security incidents across an IT infrastructure. Modern SOCS rely a lot on centralised log aggregation and analysis platforms such as Splunk, to provide visibility across network, endpoint, cloud and application environments.
+This coursework is based on the BOTSv3 dataset which is a realistic simulatied security incident made by the Splunk team. BOTSv3 uses a fictional organisation called Frothly which is a brewing company operating a hybrid infrastructure that includes on premise systems , endpoints and cloud services using amazon AWS. The dataset contains a large volume of security relevant logs, including AWS cloudtrail events, s3 access logs, endpoint telemetry and host monitoring data.
+The objective of my investigation is to assume the role of a SOC analyst and conduct and incident analysis using Splunks search processing language. The focus is on AWS related security events, with supporting analysis of endpoint data where relevant. By answering a set of Botsv3 questions, this report aims to demonstrate practical log analysis skills, an understanding of cloud security risks, and the ability to relate technical findings to SOC operations and incident handling methodologies. The scope of this investigations is limited to the data provided within the BOTSv3 set.
 
 ---
 
@@ -26,20 +26,20 @@ Throughout the investigation, findings are considered in the context of SOC work
 
 ### Environment Setup
 
-The investigation environment is hosted on an Ubuntu Linux VM configured to run Splunk Enterprise. This setup reflects a common SOC deployment model where analysts interact with splunk through a web interface while aanalysis and indexing are performed on a dedicated Linux server. Ubuntu was selected due to stability and compatability.
+The investigation environment is hosted on an Ubuntu Linux VM configured to run Splunk Enterprise. This setup reflects a common SOC deployment model where analysts interact with Splunk through a web interface while aanalysis and indexing are performed on a dedicated Linux server. Ubuntu was selected due to stability and compatability.
 Splunk Enterprise is used as the primary SIEM platform for this investigation.
 
 ### BOTSv3 Dataset Ingestion
 
-The BOTSv3 dataset is obtained from the official splunk's github repository. The dataset consists of pre indexed logs covering multiple sourcetypes relevant to enterprise security monitoring. Ingestion is performed by following the vendor provided instructions to ensure correct index naming, sourcetype assignment and timestamp extraction.
+The BOTSv3 dataset is obtained from the official Splunk's github repository. The dataset consists of pre indexed logs covering multiple sourcetypes relevant to enterprise security monitoring. Ingestion is performed by following the vendor provided instructions to ensure correct index naming, sourcetype assignment and timestamp extraction.
 
 
 ### Data Validation
 
-Once ingestion is completed, data validation is performed to confirm that logs have been indexed and that key sourcetypes are available for analysis. Validation includes verifying event vounts, confirming the presence of AWS and enpoint related sourcetypes and ensuring that time ranges align with the simulated incident period.
+Once ingestion is completed, data validation is performed to confirm that logs have been indexed and that key sourcetypes are available for analysis. Validation includes verifying event vounts, confirming the presence of AWS and endpoint related sourcetypes and ensuring that time ranges align with the simulated incident period.
 Sucessful validation is critical in a SOC context, as innacurate or incomplete log ingestion can lead to missed detections or delayed incident response. 
 
-Following ingestion, data validation was performed to confirm that the BOTSv3 dataset was sucessfully indexed. An initial search confirmed 2.8Million indexed events. A breakdown of events by sourcetype further verified the presence of key AWS and endpoint sources, including aws:cloudtrail, aws:s3:accesslogs, winhostmon and hardware. This validation step is critical in a SOC environment, as incomplete or missing log sources can result in missed detections.
+Following ingestion, data validation was performed to confirm that the BOTSv3 dataset was sucessfully indexed. An initial search confirmed 2.8Million indexed events. A breakdown of events by sourcetype further verified the presence of key AWS and endpoint sources, including AWS:cloudtrail, AWS:s3:accesslogs, winhostmon and hardware. This validation step is critical in a SOC environment, as incomplete or missing log sources can result in missed detections.
 ![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/ingestion1.png)
 ![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/ingestion2.png)
 
@@ -58,7 +58,7 @@ This section answers the selected BOTSv3 200-level guided questions, focusing on
 **SPL Query:**
 
 ```spl
-index=botsv3 sourcetype=aws:cloudtrail earliest=0
+index=botsv3 sourcetype=AWS:cloudtrail earliest=0
 | search NOT eventName=ConsoleLogin
 | stats count by userIdentity.userName
 | sort userIdentity.userName
@@ -67,10 +67,12 @@ index=botsv3 sourcetype=aws:cloudtrail earliest=0
 **Evidence:**
 ![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/Question1proof.png)
 
-**Answer: bstoll, btun, splunk_access, web_admin**
+**Answer: bstoll, btun, Splunk_access, web_admin**
 
 **SOC Relevance:**
-Identifying IAM users that have accessed AWS services is a critical step in SOC monitoring and incidente response. By querying cloudtrail logs for API activity, analysts can detect unusual or unauthorized usuage, such as supicious automation scripts, cromprimised credentials or privilege escalation attempt.
+Identifying IAM users that access AWS services is a fundamental SOC monitoring activity. By analysing the AWS CloudTrail logs, SOC analysts gain visibility into who is interacting with cloud resources and how frequently. This information helps establish a baseline of normal user behaviour and supports the detection of any anomolies in the activity such as unexpected API usage, comprimised credentials or the abuse of privileged accounts.
+
+In a real SOC environment, this analysis would typically be performed by a Tier 1 analyst as part of routine monitoring or alert triage. Any unknown or high risk IAM users identified would be escalated to Tier 2 for futher investigation, including reviewing access patterns, validating permissions, and determining whether access aligns with the users role. This process supports accountability, access crontrol enforcement, and early detection of cloud based threats.
 
 ---
 
@@ -81,10 +83,10 @@ Identifying IAM users that have accessed AWS services is a critical step in SOC 
 **SPL Query:**
 
 ```spl
-index=botsv3 sourcetype=aws:cloudtrail earliest=0
+index=botsv3 sourcetype=AWS:cloudtrail earliest=0
 | search NOT eventName=ConsoleLogin
-| eval mfa_used=if(tostring(userIdentity.sessionContext.attributes.mfaAuthenticated)="true", 1, 0)
-| where mfa_used=0
+| eval MFA_used=if(tostring(userIdentity.sessionContext.attributes.MFAAuthenticated)="true", 1, 0)
+| where MFA_used=0
 | stats count by userIdentity.userName, eventName
 | sort userIdentity.userName
 ```
@@ -92,15 +94,12 @@ index=botsv3 sourcetype=aws:cloudtrail earliest=0
 **Evidence:**
 ![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/question2proof.png)
 
-**Answer: userIdenity.sessionContext.attributes.mfaAuthenticated**
+**Answer: userIdenity.sessionContext.attributes.MFAAuthenticated**
 
 **SOC Relevance:**
-Monitoring AWS API activity without MFA is a critical SOC control. MFa provides an additional layer of security beyond passwords or keys, detecting API calls without MFA allows analysts to:
-Identify potentially compromised credentials
-Trigger immediate alerts for risky access
-Ensure compliance with orginizational security policies.
+Monitoring AWS API activity where MFA is not used is a critical detective control in cloud security operations. MFA significantly reduces the risk of credential compromise, and API activity without MFA represents and elevated security risk, particularly for privileged IAM users.
 
-This detection falls within preventive and detective SOC controls, helping analysts reduce the risk of unauthorized access to sensitive cloud resources.
+In a SOC context, detection of API calls without MFA would typically trigger an automated alert. A Tier 2 analyst would investigate whether the activity was authorised, assess the sensitivity of the affected resources, and determine whether the credentials may have been compromised. If confirmed as risky or malicious, reponse actions could include rotating access keys, enforcing MFa policies, and auditing IAM perissions. This detection directly supports incident prevention, cloud security posture management and compliance with organisational security standards.
 
 ---
 
@@ -125,7 +124,9 @@ index=botsv3 sourcetype=hardware earliest=0
 **Answer:E5-2676**
 
 **SOC Relevance:**
-Identifying processor types on servers is critical for SOC operations as part of asset inventory and vulnerability management. Hardware information helps analysts understand the environment, assess potential vulnerabilities, and correlate incidents to affected hardware. Maintaining up to date hardware details is a preventative control that supports incident investigation.
+Maintaining accurate hardware and system invesntory is and important supporting function of a SOC, particularly for incident scoping and vulnerablitiy management. Indentifying processor information on web servers allows analysts to better understand the infrastructure they are protecting and to correlate incidents with specific assets.
+
+In a real world SOC, this information would be used to assess exposure to hardware specific vulnerablities, support forensic investigations and prioritise patching or mitigation activities. Accurate asset visibility also enables faster incident response by allowing analysts to quickly identify affected systems and their critically within the environment.
 
 ---
 
@@ -136,7 +137,7 @@ Identifying processor types on servers is critical for SOC operations as part of
 **SPL Query:**
 
 ```spl
-index=botsv3 sourcetype=aws:cloudtrail earliest=0
+index=botsv3 sourcetype=AWS:cloudtrail earliest=0
 | search eventName=PutBucketAcl
 | table _time, userIdentity.userName, userIdentity.arn, eventName, eventID, requestParameters
 | sort _time
@@ -151,11 +152,8 @@ index=botsv3 sourcetype=aws:cloudtrail earliest=0
 **Answer: ab45689d-69cd-41e7-8705-5350402cf7ac**
 
 **SOC Relevance:**
-Public S3 buckets are a major cloud misconfiguration risk.
-SOC analysts monitor PubtBucketAcl events to:
-Detect accidental or malicious exposure
-Alert admins and remediate quickly
-Track who made change and when
+Publicly accessible S3 buckets are a common cause of cloud data exposure incidents. Monitoring for PutBucketAcl events allows SOC analysts to detect when access controls on S3 buckets are modified, potentially exposing sensitive data to the internet.
+In a SOC environment, this type of event would usually trigger a high priority alert due to the risk of data leakage. A tier 2 analyst would investigate the context of the change, identify the user responsible, assess wether the change was intentional or accidental and determine the potential impact. Immediate remediation actions would include restricting bucket access, notifying cloud administrators and documenting the incident for audit and compliance purposes.
 
 ---
 
@@ -171,11 +169,8 @@ Track who made change and when
 ![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/q5-username.png)
 
 **SOC Relevance:**
-Identifying which user made risky changes is a key part of SOC incident reposnose and auditing.
-Knowing the username allows analysts to: 
-Ivestigate intent. (malicious or accidental)
-Apply corrective actions or revoke access
-Track changes for compliance and audit reporting
+Attributing security relevant actions to specific users is a core requirement for SOC investigations. Identifying the user responsible for making an S3 bucket publicly accessible enables accountability and supports root cause analysis.
+In a real SOC scenario, this information would be used to assess intent, such as whether the action resulted from human error, misconfiguration, or malicious activity. The SOC may escalate the incident to cloud security or management teams, revoke or adjust the users permissions and implement additional controls or training to prevent recurrence. User attribution is also essential for compliance reporting and post incident reviews.
 
 ---
 
@@ -183,7 +178,7 @@ Track changes for compliance and audit reporting
 
 **Objective:** Identify the name of the S3 bucket that was made publicly accessible.
 
-**Also extracted during q4 analysis so using the same splunk query**
+**Also extracted during q4 analysis so using the same Splunk query**
 
 **Answer: frothlywebcode**
 
@@ -191,13 +186,8 @@ Track changes for compliance and audit reporting
 ![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/q6-bucketname.png)
 
 **SOC Relevance**
-Detecting misconfigured s3 buckets is critical for soc operations.
-Public buckets can expose sensitive or confidential data. Analysts must:
-Identify which buckets were misconfigured.
-Determine who made the change 
-Alert admins and remediate the access control
-Log the incident for compliance audits.
-This is a part of preventive, detective and corrective cloud SOC controls.
+Identifying the specific S3 bucket affected by a misconfiguration is critical for effective incident response. Knowing the bucket name allows SOC analysts to determing what data may have been exposed and to assess the sensitivity and business impact of the incident.
+In practice, a SOC would use this information to coordinate remediation actions such as restricting access, reviewing historical access logs, and verifting whether any unauthorised downloads occured. This step is essential for incident containment, impact assessment and regulatory reporting, particularly if sensitive or customer data is involved.
 
 ---
 
@@ -208,7 +198,7 @@ This is a part of preventive, detective and corrective cloud SOC controls.
 **SPL Query:**
 
 ```spl
-index=botsv3 sourcetype="aws:s3:accesslogs" "txt"
+index=botsv3 sourcetype="AWS:s3:accesslogs" "txt"
 ```
 
 **Evidence:**
@@ -217,9 +207,8 @@ index=botsv3 sourcetype="aws:s3:accesslogs" "txt"
 **Answer:OPEN_BUCKET_PLEASE_FIX.txt**
 
 **SOC Relevance:**
-Monitoring s3 bucket uploads is critical to prevent data exposure
-Analysts track uploaded files via access logs (aws:s3:accesslogs) and identify esnsitive data
-Even when automated queries fail, manually verifying raw events is a valid investigative method in SOC operations.
+Monitoring files uploaded to publicly accessible S3 buckets is an important paet of cloud threat detection and data protection. The presence of a ".TXT' file uploaded while the bucket was public may indicate unauthorised access, proof of concept exploitation or attempted data manipulation by an external party.
+In a SOC environment, this finding would prompt further investigation to determine who uploaded the file, from which IP address and whether additional malicious activity occured. Analysts would also review access logs to identify potential data exfiltration and ensure that no sensitive files were exposed. This analysis supports both incdient adetection and post incident forensic investigation.
 
 ---
 
@@ -249,7 +238,7 @@ A potentially unauthorized or rogue device
 Increased vulnerability exposure due to unsupported or weaker security features
 
 By analysing endpoint telemetry using sources such as winhostmon, SOC analysts can quickly identify deviations from normal operating system baselines. These anomalies can then be escalated for futher investigation, asset validation, or remediation, reducing the risk of exploitation and improving overall endpoint security posture.
-This approach aligns with real world soc practices focused on continuous monitoring, baseline comparison and early detection of configureation drift.
+This approach aligns with real world SOC practices focused on continuous monitoring, baseline comparison and early detection of configureation drift.
 
 ---
 
