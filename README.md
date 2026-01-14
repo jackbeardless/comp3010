@@ -265,8 +265,4 @@ Overall this coursework demonstrated the practical application of SOC methodolog
 [3] AWS S3 Acess Logs docs - [S3 Docs](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerLogs.html)
 [4] Splunk SPL reference [Splunk SPL](https://docs.splunk.com/Splexicon:SPL)
 
----
 
-## AI Declaration
-
-I can confirm that AI was used to help me to structure this report.
