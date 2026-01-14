@@ -230,10 +230,12 @@ Even when automated queries fail, manually verifying raw events is a valid inves
 **SPL Query:**
 
 ```spl
+index=botsv3 sourcetype="WinHostMon" Type="OperatingSystem" | stats count by OS, host
 ```
 
 **Evidence:**
-*(Screenshot placeholder)*
+![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/q8-diffos.png)
+![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/q8-queryandanswer.png)
 
 **Answer:**
 
