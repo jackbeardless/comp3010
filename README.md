@@ -254,7 +254,7 @@ Overall this coursework demonstrated the practical application of SOC methodolog
 
 ## Video Presentation
 
-*(Unlisted YouTube link to the recorded presentation will be embedded here.)*
+[YoutubeVideo](https://youtu.be/-Sb3NpfAWm8)
 
 ---
 
