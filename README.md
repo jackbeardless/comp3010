@@ -237,9 +237,19 @@ index=botsv3 sourcetype="WinHostMon" Type="OperatingSystem" | stats count by OS,
 ![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/q8-diffos.png)
 ![Screenshot](https://github.com/jackbeardless/comp3010/blob/main/screenshots/q8-queryandanswer.png)
 
-**Answer:**
+**Answer:BSTOLL-L.froth.ly**
 
 **SOC Relevance:**
+Indentifying endpoints running a different operating system edition than the baseline is an important SOC function. In enterprise environments, SOC teams maintain expected configurations for endpoints top reduce attack surface and ensure consistent patching and security controls.
+
+A host running an anomalous Windows edition may indicate:
+A misconfigured or unmanaged endpoint
+A legacy system lacking critical security patches
+A potentially unauthorized or rogue device
+Increased vulnerability exposure due to unsupported or weaker security features
+
+By analysing endpoint telemetry using sources such as winhostmon, SOC analysts can quickly identify deviations from normal operating system baselines. These anomalies can then be escalated for futher investigation, asset validation, or remediation, reducing the risk of exploitation and improving overall endpoint security posture.
+This approach aligns with real world soc practices focused on continuous monitoring, baseline comparison and early detection of configureation drift.
 
 ---
 
