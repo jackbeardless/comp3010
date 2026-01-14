@@ -9,8 +9,8 @@
 
 ## Introduction
 
-A security operations centre (or SOC) is responsible for continuous monitoring, detection, analysis and response to security incidents across an IT infrastructure. Modern SOCS rely a lot on centralised log aggregation and analysis platforms such as Splunk, to provide visibility across network, endpoint, cloud and application environments.
-This coursework is based on the BOTSv3 dataset which is a realistic simulatied security incident made by the Splunk team. BOTSv3 uses a fictional organisation called Frothly which is a brewing company operating a hybrid infrastructure that includes on premise systems , endpoints and cloud services using amazon AWS. The dataset contains a large volume of security relevant logs, including AWS cloudtrail events, s3 access logs, endpoint telemetry and host monitoring data.
+A security operations centre (or SOC) is responsible for continuous monitoring, detection, analysis and response to security incidents across an IT infrastructure. Modern SOCS rely a lot on centralised log aggregation and analysis platforms such as Splunk [4], to provide visibility across network, endpoint, cloud and application environments.
+This coursework is based on the BOTSv3 dataset [1] which is a realistic simulatied security incident made by the Splunk team. BOTSv3 uses a fictional organisation called Frothly which is a brewing company operating a hybrid infrastructure that includes on premise systems , endpoints and cloud services using amazon AWS [2]. The dataset contains a large volume of security relevant logs, including AWS cloudtrail [2] events, s3 access logs [3], endpoint telemetry and host monitoring data.
 The objective of my investigation is to assume the role of a SOC analyst and conduct and incident analysis using Splunks search processing language. The focus is on AWS related security events, with supporting analysis of endpoint data where relevant. By answering a set of Botsv3 questions, this report aims to demonstrate practical log analysis skills, an understanding of cloud security risks, and the ability to relate technical findings to SOC operations and incident handling methodologies. The scope of this investigations is limited to the data provided within the BOTSv3 set.
 
 ---
@@ -256,4 +256,7 @@ This approach aligns with real world SOC practices focused on continuous monitor
 
 ## References
 
-*(IEEE-style references to Splunk documentation, AWS documentation, and BOTSv3 resources.)*
+[1] Splunk BOTSv3 Github - [Github Repo](https://github.com/splunk/botsv3?tab=readme-ov-file)
+[2] AWS CloudTrail docs - [CloudTrail Docs](https://docs.aws.amazon.com/cloudtrail/)
+[3] AWS S3 Acess Logs docs - [S3 Docs](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerLogs.html)
+[4] Splunk SPL reference [Splunk SPL](https://docs.splunk.com/Splexicon:SPL)
